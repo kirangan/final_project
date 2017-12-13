@@ -3,6 +3,7 @@ require 'rails_helper'
 describe UsersController do
   before :each do
     @user1 = create(:user, username: "user1")
+    session[:user_id] = @user1.id
   end
 
   describe 'GET #index' do

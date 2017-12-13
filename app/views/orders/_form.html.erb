@@ -1,0 +1,40 @@
+<div class="container-fluid">
+<%= form_for(order) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :mode %>
+    <%= form.select :mode, Order.modes.keys, prompt:"Go-Bike or Go-Car?", size:40 %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :origin %>
+    <%= form.text_area :origin, rows:3, cols:60 %>
+  </div>
+
+   <div class="form-group">
+    <%= form.label :destination %>
+    <%= form.text_area :destination, rows:3, cols:60 %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :payment %>
+    <%= form.select :payment, Order.payments.keys, prompt:"Select a payment type", size:40 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Place Order" %>
+  </div>
+<% end %>
+
+</div>

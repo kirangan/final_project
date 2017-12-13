@@ -1,0 +1,29 @@
+<table class="table">
+  <tr>
+    <td>Id</td>
+    <td>Mode</td>
+    <td>Origin</td>
+    <td>Destination</td>
+    <td>Distance</td>
+    <td>Payment</td>
+    <td>Total Price</td>
+    <td>Action</td>
+  </tr>
+
+  <% @orders.each do|o| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even')%>">
+    <td><%= o.id %></td>
+    <td><%= o.mode%></td>
+    <td><%= o.origin %></td>
+    <td><%= o.destination %></td>
+    <td><%= o.distance.to_f / 1000 %> km</td>
+    <td><%= o.payment %></td>
+
+    <td><%= number_to_currency(o.total_price, unit: "Rp ", delimiter: ".", separator: ",")  %></td>
+    <td>  <%= link_to 'Show', o %>
+          <%= link_to 'Edit', edit_order_path(o) %>
+          <%= link_to 'Destroy', o, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+  <% end %>
+</table>

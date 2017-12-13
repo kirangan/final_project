@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<h2>Your Order is Success</h2>
+
+<p>
+  <strong>Mode:</strong>
+  <%= @order.mode %>
+</p>
+
+<p>
+  <strong>Origin:</strong>
+  <%= @order.origin %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @order.destination %>
+</p>
+
+<p>
+  <strong>Distance:</strong>
+  <%= @order.distance.to_f / 1000 %> km
+</p>
+
+<p>
+  <strong>Payment Type:</strong>
+  <%= @order.payment %>
+</p>
+
+
+<p>
+  <strong>Total Price:</strong>
+  <%= number_to_currency(@order.total_price, unit: "Rp ", delimiter: ".", separator: ",")  %>
+</p>
+
+
+
+<%= link_to 'Back', orders_path %>
