@@ -4,6 +4,7 @@
 class Order < ApplicationRecord
 
   belongs_to :user
+  belongs_to :driver
 
   
   enum payment: {
@@ -36,7 +37,7 @@ class Order < ApplicationRecord
     end
   end
 
-  def distance
+  def distance_length
     if api_not_nil?
       if get_google_api[:status] == "OK"
         get_google_api[:distance][:value]
@@ -47,20 +48,14 @@ class Order < ApplicationRecord
   def total
     if api_not_nil?
       if mode == "Go-Bike"
-        cost = (distance.to_f / 1000) * 5000
+        cost = (distance_length.to_f / 1000) * 5000
         cost.round
       else
-        cost = (distance.to_f / 1000) * 10000
+        cost = (distance_length.to_f / 1000) * 10000
         cost.round
       end
     end
   end
-
-  # def total
-  #   if api_not_nil?
-  #     total_price + delivery_cost
-  #   end
-  # end
 
   def reduce_gopay
     gopay = 0

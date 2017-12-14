@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :orders
+
+  get '/users/:id/topup', to: 'users#topup', as: 'user_topup'
 end
