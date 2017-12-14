@@ -44,9 +44,9 @@ describe SessionsController do
       expect(session[:user_id]).to eq(nil)
     end
 
-    it "redirect_to to login_url" do
+    it "redirect_to to home index page" do
       delete :destroy, params: { id: @user }
-      expect(response).to redirect_to login_url
+      expect(response).to redirect_to home_index_url
     end
   end
 end

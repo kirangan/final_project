@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FinalProject</title>
+    <title>fINAL PROJECT</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="<%= controller.controller_name %>">
+    <div id="banner">
+      <%= image_tag 'gojek2.png', alt: "Simplified Go-Jek" %>
+      <span class="title"><%= @page_title %></span>
+    </div>
+    <div id="columns">
+      <div id="side">
+        
+        <ul>
+          <li><%= link_to 'Home', home_index_url %></li>
+          
+        </ul>
+
+        <% if session[:user_id] %>
+          <ul>
+            
+            <li><%= link_to 'Orders', new_order_path %></li>
+    
+            <br/>
+            <li><%= link_to 'My Account', user_path(id: session[:user_id]) %></li>
+            <li><%= link_to 'My History', orders_path  %></li>
+
+            <li>&nbsp;</li>
+            <li><%= button_to 'Logout', logout_path, method: :delete %></li>
+          </ul>
+          
+        <% else %>
+          <ul>
+            <li><%= link_to 'Login', login_path %></li>
+          </ul>
+        <% end %>
+      </div>
+      <div id="main">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
