@@ -4,7 +4,7 @@
 class Order < ApplicationRecord
 
   belongs_to :user
-  belongs_to :driver
+  # belongs_to :driver
 
   
   enum payment: {

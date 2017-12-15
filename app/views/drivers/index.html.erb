@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<table class="table">
+  <tr>
+    <td>Username</td>
+    <td>Vehicle Type</td>
+    <td>Gopay Balance</td>
+    <td>Action</td>
+  </tr>
+
+  <% @drivers.each do|driver| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even')%>">
+    <td><%= driver.username %></td>
+    <td><%= driver.vehicle_type %></td>
+    <td><%= driver.gopay %></td>
+
+    <td><%= link_to 'Set Location', set_location_path(driver), :class => "btn btn-success btn-xs" %></td>
+
+    <td>  <%= link_to 'Show', driver %>
+          <%= link_to 'Edit', edit_driver_path(driver) %>
+          <%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+
+
+
+<%= link_to 'New Driver', new_driver_path %>

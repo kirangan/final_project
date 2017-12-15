@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @driver.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @driver.email %>
+</p>
+
+<p>
+  <strong>Vehicle:</strong>
+  <%= @driver.vehicle_type %>
+</p>
+
+<p>
+  <strong>Gopay Balance:</strong>
+  <%= @driver.gopay %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @driver.location %>
+</p>
+
+<%= link_to 'Edit Profile', edit_driver_path(@driver) %> |
