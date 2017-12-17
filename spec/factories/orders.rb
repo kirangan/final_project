@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :order do
     mode "Go-Bike"
-    origin "MyText"
-    destination "MyText"
+    origin "sarinah, jakarta"
+    destination "tanah abang, jakarta"
     payment "Cash"
 
     total_price 30000
