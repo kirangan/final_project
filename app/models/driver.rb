@@ -1,8 +1,8 @@
 class Driver < ApplicationRecord
   has_secure_password
-
-  belongs_to :location
-  # has_many :orders
+  has_many :orders
+  geocoded_by :location
+  after_validation :geocode, :if => :location_changed?
 
   enum vehicle_type: {
     "Go-Bike" => 0,
@@ -15,30 +15,30 @@ class Driver < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 8 }, allow_blank: true
 
-  validates_with LocationDriverValidator
+  # validates_with LocationDriverValidator
 
 
-  def api_key
-    api = 'AIzaSyAnf7gZ6J-IqIw7tHOuwMzBlBUmu5Mpm0w'
-  end
+  # def api_key
+  #   api = 'AIzaSyAnf7gZ6J-IqIw7tHOuwMzBlBUmu5Mpm0w'
+  # end
 
-  def get_google_api
-    gmaps = GoogleMapsService::Client.new(key: api_key)
-    if !location.empty?
-      matrix = gmaps.geocode(location)
-    end
-  end
+  # def get_google_api
+  #   gmaps = GoogleMapsService::Client.new(key: api_key)
+  #   if !location.empty?
+  #    puts matrix = gmaps.geocode(location)
+  #   end
 
+  # end
 
-  def set_location
-    if api_not_nil?
-      location = get_google_api
-    end
-  end
+  # def set_location
+  #   if api_not_nil?
+  #     location = get_google_api
+  #   end
+  # end
 
-  def api_not_nil?
-    !get_google_api.nil?
-  end
+  # def api_not_nil?
+  #   !get_google_api.nil?
+  # end
 
 end
 
