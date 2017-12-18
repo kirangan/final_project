@@ -12,11 +12,16 @@
   <% end %>
 
   <fieldset>
-    <legend>Enter User Details</legend>
+    <legend>Create My Account</legend>
 
     <div class="field">
       <%= f.label :username %>
       <%= f.text_field :username, size: 40 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email, size: 40 %>
     </div>
 
     <div class="field">
@@ -26,7 +31,7 @@
 
     <div class="field">
       <%= f.label :password_confirmation, 'Confirm:' %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, size: 40 %>
     </div>
 
     <div class="actions">

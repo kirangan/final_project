@@ -206,6 +206,11 @@
   border-radius: 0 0 4px 4px;
 }
 
+.button {
+  float: left;
+  padding: 20px;
+}
+
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
 .comment-box .comment-name.by-author:after {
   content: 'autor';

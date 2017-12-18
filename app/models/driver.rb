@@ -1,7 +1,7 @@
 class Driver < ApplicationRecord
   has_secure_password
 
-
+  belongs_to :location
   # has_many :orders
 
   enum vehicle_type: {

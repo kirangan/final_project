@@ -1,0 +1,20 @@
+<table class="table">
+  <tr>
+    <td>Address</td>
+    <td>Longitute</td>
+    <td>Latitude</td>
+  </tr>
+
+  <% @locations.each do|location| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even')%>">
+    <td><%= location.address %></td>
+    <td><%= location.longitude %></td>
+    <td><%= location.latitude %></td>
+    <td><%= location.drivers.size %></td>
+    <td>  <%= link_to 'Show', o %>
+          <%= link_to 'Edit', edit_location_path(o) %>
+          <%= link_to 'Destroy', o, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+  <% end %>
+</table>

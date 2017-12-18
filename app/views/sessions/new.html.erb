@@ -16,11 +16,22 @@
         <%= label_tag :password, 'Password:' %>
         <%= password_field_tag :password, params[:password] %>
       </div>
+
+      <div>
+        <%= label_tag :role, '' %>
+        <%= radio_button_tag :role, 'user' %> Customer <br />
+        <%= radio_button_tag :role, 'driver' %> Driver <br />
+      </div>
       
       <div>
         <%= submit_tag "Login" %>
       </div>
-      <%= link_to "Register?", new_user_path %>
     </fieldset>
+
+    <br />
+    <p>New member? </p>
+    <%= link_to 'Sign Up Driver', new_driver_path %>
+    <br />
+    <%= link_to 'Sign Up Customer', new_user_path %>
   <% end %>
 </div>

@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
- 
-  get 'app_pages/home'
 
+  root 'app_pages#home'
   get 'app_pages/about'
-
-  get 'admin/index'
-  root 'home#index', as: 'home_index'
-  
-  # get "signup" => "signup#new"
-  # post "signup" => "signup#create"
+  # get '/signup_user', to: "users#new"
+  # get '/signup_driver', to: "drivers#new"
 
   controller :sessions do
     get 'login' => :new
