@@ -1,8 +1,10 @@
 class Driver < ApplicationRecord
   has_secure_password
   has_many :orders
+
   geocoded_by :location
-  after_validation :geocode, :if => :location_changed?
+  after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? }
+
 
   enum vehicle_type: {
     "Go-Bike" => 0,
@@ -15,30 +17,13 @@ class Driver < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 8 }, allow_blank: true
 
-  # validates_with LocationDriverValidator
+  def self.update_gopay_driver_from_order(order)
+    Driver.find(order.driver_near_first.id).update(gopay: order.increase_gopay)
+  end
 
-
-  # def api_key
-  #   api = 'AIzaSyAnf7gZ6J-IqIw7tHOuwMzBlBUmu5Mpm0w'
-  # end
-
-  # def get_google_api
-  #   gmaps = GoogleMapsService::Client.new(key: api_key)
-  #   if !location.empty?
-  #    puts matrix = gmaps.geocode(location)
-  #   end
-
-  # end
-
-  # def set_location
-  #   if api_not_nil?
-  #     location = get_google_api
-  #   end
-  # end
-
-  # def api_not_nil?
-  #   !get_google_api.nil?
-  # end
+  def self.update_location_from_order(order)
+    Driver.find(order.driver_near_first.id).update(location: order.change_driver_location )
+  end
 
 end
 

@@ -89,6 +89,7 @@ GEM
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     ffi (1.9.18)
+    geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     google_maps_service (0.4.2)
@@ -243,6 +244,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails (~> 4.4.1)
   faker!
+  geocoder
   google_maps_service
   jbuilder (~> 2.5)
   launchy (~> 2.4.2)

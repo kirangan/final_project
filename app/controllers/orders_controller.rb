@@ -23,10 +23,13 @@ class OrdersController < ApplicationController
     @order.user_id = session[:user_id]
     @order.distance = @order.distance_length
     @order.total_price = @order.total
+    @order.driver_id = @order.driver_near_first.id
 
     respond_to do |format|
       if @order.save
         User.update_gopay_from_order(@order)
+        Driver.update_gopay_driver_from_order(@order)
+        Driver.update_location_from_order(@order)
 
         format.html{ render :show, notice: "orders successfully saved"}
         format.json { render :show, status: :created, location: @order }

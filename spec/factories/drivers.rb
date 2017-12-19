@@ -2,9 +2,17 @@
 
 FactoryGirl.define do
   factory :driver do
-    username "MyString"
-    email "MyString"
-    gopay "9.99"
-    password ""
+    username { Faker::Internet.unique.user_name }
+    email { Faker::Internet.email }
+    gopay 10000
+    password "longpassword"
+    password_confirmation "longpassword"
+  end
+
+  factory :invalid_driver do
+    username nil
+    email nil
+    password nil
+    password_confirmation nil
   end
 end

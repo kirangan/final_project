@@ -35,7 +35,7 @@ class DriversController < ApplicationController
   def update
     respond_to do |format|
       if !params[:driver][:location].nil?
-        @driver.location = @driver.set_location
+        # @driver.location = @driver.location
 
         if @driver.update(driver_location_params)
           format.html { redirect_to drivers_url, notice: 'Location was successfully updated.' }

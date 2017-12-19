@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   get '/users/:id/topup', to: 'users#topup', as: 'user_topup'
   get '/drivers/:id/setlocation', to: 'drivers#setlocation', as: 'set_location'
+  resources :locations
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216130702) do
+ActiveRecord::Schema.define(version: 20171219073039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,8 @@ ActiveRecord::Schema.define(version: 20171216130702) do
     t.decimal "gopay", default: "0.0", null: false
     t.integer "vehicle_type"
     t.text "location", default: "", null: false
-  end
-
-  create_table "locations", force: :cascade do |t|
-    t.text "address"
-    t.float "latitude"
     t.float "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float "latitude"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -44,6 +38,10 @@ ActiveRecord::Schema.define(version: 20171216130702) do
     t.datetime "updated_at", null: false
     t.decimal "distance"
     t.bigint "user_id"
+    t.float "longitude"
+    t.float "latitude"
+    t.bigint "driver_id"
+    t.index ["driver_id"], name: "index_orders_on_driver_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -56,5 +54,6 @@ ActiveRecord::Schema.define(version: 20171216130702) do
     t.decimal "gopay", default: "0.0", null: false
   end
 
+  add_foreign_key "orders", "drivers"
   add_foreign_key "orders", "users"
 end

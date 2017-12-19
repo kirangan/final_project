@@ -26,7 +26,6 @@
   <%= @order.payment %>
 </p>
 
-
 <p>
   <strong>Total Price:</strong>
   <%= number_to_currency(@order.total_price, unit: "Rp ", delimiter: ".", separator: ",")  %>
