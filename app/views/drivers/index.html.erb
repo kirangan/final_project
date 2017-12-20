@@ -1,35 +1,46 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Orders</h1>
+<p>
+  <strong>Username:</strong>
+  <%= @driver.username %>
+</p>
 
-<table class="table">
-  <tr>
-    <td>Username</td>
-    <td>Vehicle Type</td>
-    <td>Gopay Balance</td>
-    <td>Location</td>
-    <td>Action</td>
-  </tr>
+<p>
+  <strong>Email:</strong>
+  <%= @driver.email %>
+</p>
 
-  <% @drivers.each do|driver| %>
-  <tr class="<%= cycle('list_line_odd','list_line_even')%>">
-    <td><%= driver.username %></td>
-    <td><%= driver.vehicle_type %></td>
-    <td><%= driver.gopay %></td>
-    <td><%= driver.location %></td>
+<p>
+  <strong>Vehicle:</strong>
+  <%= @driver.vehicle_type %>
+</p>
 
-    <td><%= link_to 'Set Location', set_location_path(driver), :class => "btn btn-success btn-xs" %></td>
+<p>
+  <strong>Gopay Balance:</strong>
+  <%= @driver.gopay %>
+</p>
 
-    <td>  <%= link_to 'Show', driver %>
-          <%= link_to 'Edit', edit_driver_path(driver) %>
-          <%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+<p>
+  <strong>Location:</strong>
+  <%= @driver.location %>
+</p>
 
+<p>
+  <strong>Longitude:</strong>
+  <%= @driver.longitude %>
+</p>
 
+<p>
+  <strong>Latitude:</strong>
+  <%= @driver.latitude %>
+</p>
 
+<p>
+  <strong>Number of received orders: </strong>
+  <%= @driver.order_ids.count %>
+</p>
 
+<br />
+<%= link_to 'Edit Profile', edit_driver_path(@driver), :class => "btn btn-success btn-xs" %> 
 
-<%= link_to 'New Driver', new_driver_path %>
+<%= link_to 'Set Location', driver_setlocation_path(@driver), :class => "btn btn-success btn-xs" %>

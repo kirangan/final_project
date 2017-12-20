@@ -2,21 +2,25 @@
 
 <h1>Users</h1>
 
-<table>
-  <% @users.each do |user| %>
-    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-      <td><%= user.username %></td>
-      <td><%= user.gopay %></td>
-      <td><%= link_to 'Top Up', user_topup_path(user), :class => "btn btn-success btn-xs" %></td>
-      <td>
-        <%= link_to 'Show', user, :class => "btn btn-default btn-xs" %> &nbsp;
-        <%= link_to 'Edit', edit_user_path(user), :class => "btn btn-warning btn-xs" %> &nbsp;
-        <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+
+<p>
+  <strong>Gopay Credit:</strong>
+  <%= @user.gopay %>
+</p>
+
 
 <br/>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'Edit Profile', edit_user_path(@user), :class => "btn btn-success btn-xs" %> |
+<%= link_to 'Top Up', user_topup_path(@user), :class => "btn btn-success btn-xs" %>
+

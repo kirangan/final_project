@@ -11,27 +11,22 @@
         <%= label_tag :username, 'Username:' %>
         <%= text_field_tag :username, params[:username] %>
       </div>
-      
+        <br />
       <div>
         <%= label_tag :password, 'Password:' %>
         <%= password_field_tag :password, params[:password] %>
       </div>
-
+        <br />
       <div>
         <%= label_tag :role, '' %>
         <%= radio_button_tag :role, 'user' %> Customer <br />
         <%= radio_button_tag :role, 'driver' %> Driver <br />
       </div>
-      
+      <br />
       <div>
         <%= submit_tag "Login" %>
       </div>
     </fieldset>
 
-    <br />
-    <p>New member? </p>
-    <%= link_to 'Sign Up Driver', new_driver_path %>
-    <br />
-    <%= link_to 'Sign Up Customer', new_user_path %>
   <% end %>
 </div>

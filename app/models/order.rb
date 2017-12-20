@@ -5,10 +5,9 @@ class Order < ApplicationRecord
 
   geocoded_by :origin
   after_validation :geocode, if: ->(obj){ obj.origin.present? and obj.origin_changed? }
-  after_validation :available_driver
 
+  after_validation :available_driver
   before_save :origin_exist?
-  
   
   enum payment: {
     "Cash" => 0,
@@ -19,12 +18,7 @@ class Order < ApplicationRecord
     "Go-Bike" => 0,
     "Go-Car" => 1
   }
-
-  enum state: {
-    "on-state" => 0,
-    "success" => 1,
-    "failed" => 2
-  }
+  
   
   validates :mode, :origin, :destination, :payment, presence: true
   validates :payment, inclusion: payments.keys
@@ -60,7 +54,6 @@ class Order < ApplicationRecord
       matrix = gmaps.distance_matrix(origins, destinations, mode: 'driving', language: 'en-AU', avoid: 'tolls')
       matrix[:rows][0][:elements][0]
     end
-
   end
 
   def distance_length
@@ -74,22 +67,22 @@ class Order < ApplicationRecord
   def total
     if api_not_nil?
       if mode == "Go-Bike"
-        cost = ((distance_length.to_f / 1000) * go_bike_price_per_km).round
+        cost = ((distance_length.to_f / 1000) * go_bike_price_per_km).round(-2)
       else
-        cost = ((distance_length.to_f / 1000) * go_car_price_per_km).round
+        cost = ((distance_length.to_f / 1000) * go_car_price_per_km).round(-2)
       end
     end
   end
 
   def driver_near_first
-    check_driver.first
+    check_driver.first.id
   end
 
   def reduce_gopay
     gopay = 0
     if payment == "Go-Pay"
       gopay = User.find(user_id).gopay
-      gopay -= total_price
+      gopay -= total
     end
     gopay
   end
@@ -97,15 +90,16 @@ class Order < ApplicationRecord
   def increase_gopay
     gopay = 0
     if payment == "Go-Pay"
-      gopay = Driver.find(driver_near_first.id).gopay
-      gopay += total_price
+      gopay = Driver.find(driver_near_first).gopay
+      gopay += total
     end
     gopay
   end
 
   def change_driver_location 
-    Driver.find(driver_near_first.id).location = destination
+    Driver.find(driver_near_first).location = destination
   end
+
 
   private
 
@@ -116,6 +110,12 @@ class Order < ApplicationRecord
   def origin_exist?
     if latitude.blank? || longitude.blank?
       errors.add(:origin, "not found")
+    end
+  end
+
+  def destination_exist?
+    if latitude_dest.blank? || longitude_dest.blank?
+      errors.add(:destination, "not found")
     end
   end
 
@@ -137,6 +137,4 @@ class Order < ApplicationRecord
       errors.add(:origin, "Sorry there are no drivers around you")
     end
   end
-
 end
-

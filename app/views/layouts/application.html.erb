@@ -16,43 +16,34 @@
     <div id="columns">
       <div id="side">
         
-        <ul>
-          <li><%= link_to 'Home', root_path %></li>
-          
-        </ul>
+        <ul><li><%= link_to 'Home', root_path %></li></ul>
 
         <% if session[:user_id] %>
           <ul>
-            
             <li><%= link_to 'Orders', new_order_path %></li>
-    
             <br/>
-            <li><%= link_to 'Customer Account', users_path %></li>
-            <li><%= link_to 'Customer History', orders_path  %></li>
-
+            <li><%= link_to 'Customer Account', users_path(id: session[:user_id]) %></li>
+            <li><%= link_to 'Customer History', orders_path %></li>
             <li>&nbsp;</li>
             <li><%= button_to 'Logout', logout_path, method: :delete %></li>
           </ul>
           
         <% elsif session[:driver_id] %>
-           
           <ul>
-            
-            <li><%= link_to 'Set Location', set_location_url(:id) %></li>
-    
-            <br/>
-            <li><%= link_to 'Driver Account', drivers_path %></li>
-            <li><%= link_to 'Driver History', orders_path  %></li>
-
+   
+            <li><%= link_to 'Driver Account', drivers_path(id: session[:driver_id]) %></li>
+            <li><%= link_to 'Driver History', orders_path(id: session[:driver_id]) %></li>
             <li>&nbsp;</li>
             <li><%= button_to 'Logout', logout_path, method: :delete %></li>
           </ul>
 
           <% else %>
+          <ul><li><%= link_to 'Login', login_path %></li></ul>
+          <br />
+          <p>New member? </p>
+          <ul><li><%= link_to 'Sign Up Customer', new_user_path %></li></ul>
+          <ul><li><%= link_to 'Sign Up Driver', new_driver_path %></li></ul>
 
-          <ul>
-            <li><%= link_to 'Login', login_path %></li>
-          </ul>
         <% end %>
       </div>
       <div id="main">

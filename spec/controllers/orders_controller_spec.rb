@@ -2,8 +2,11 @@ require 'rails_helper'
 
 describe OrdersController do
   before :each do
-    driver = create(:driver)
+    driver = create(:driver, location: "Tanah abang 3")
     session[:driver_id] = driver.id
+
+    user = create(:user)
+    session[:user_id] = user.id
   end
   
   describe 'GET #index' do

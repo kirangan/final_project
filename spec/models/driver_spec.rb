@@ -23,6 +23,24 @@ describe Driver do
     expect(driver2.errors[:username]).to include("has already been taken")
   end
 
+  it "is invalid without an email" do
+    driver = build(:driver, email: nil)
+    driver.valid?
+    expect(driver.errors[:email]).to include("can't be blank")
+  end
+
+  it "is invalid with email not in valid email format" do
+    driver = build(:driver, email: "email")
+    driver.valid?
+    expect(driver.errors[:email]).to include("is invalid")
+  end
+
+  it 'is invalid without vehicle type' do
+    driver = build(:driver, vehicle_type: nil)
+    driver.valid?
+    expect(driver.errors[:vehicle_type ]).to include("can't be blank")
+  end
+
   context "on a new driver" do
     it "is invalid without a password" do
       driver = build(:user, password: nil, password_confirmation: nil)
@@ -64,6 +82,7 @@ describe Driver do
       expect(@driver.valid?).to eq(true)
     end
   end
+
 
   
 end

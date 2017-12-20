@@ -3,11 +3,13 @@
 FactoryGirl.define do
   factory :order do
     mode "Go-Bike"
-    origin "sarinah, jakarta"
-    destination "tanah abang, jakarta"
+    origin "sarinah jakarta"
+    destination "tanah abang jakarta"
     payment "Cash"
 
-    total_price 30000
+    # total_price 30000
+    association :user
+    # association :driver
     
   end
 

@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
-<h2>Your Order is Success</h2>
+<h2>Your Order</h2>
 
 <p>
   <strong>Mode:</strong>
   <%= @order.mode %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @order.user.username %>
 </p>
 
 <p>
@@ -25,6 +30,12 @@
   <strong>Payment Type:</strong>
   <%= @order.payment %>
 </p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @order.driver.username %>
+</p>
+
 
 <p>
   <strong>Total Price:</strong>

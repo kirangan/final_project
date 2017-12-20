@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
   root 'app_pages#home'
-  get 'app_pages/about'
-  # get '/signup_user', to: "users#new"
-  # get '/signup_driver', to: "drivers#new"
 
   controller :sessions do
     get 'login' => :new
@@ -11,11 +8,11 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  resources :users
-  resources :orders
-  resources :drivers
+  resources :users, except: [:destroy]
+  resources :orders, except:[:edit, :update]
+  resources :drivers, except: [:destroy]
 
   get '/users/:id/topup', to: 'users#topup', as: 'user_topup'
-  get '/drivers/:id/setlocation', to: 'drivers#setlocation', as: 'set_location'
-  resources :locations
+  get '/drivers/:id/setlocation', to: 'drivers#setlocation', as: 'driver_setlocation'
+
 end

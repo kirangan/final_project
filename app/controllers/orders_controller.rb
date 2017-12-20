@@ -1,10 +1,21 @@
 class OrdersController < ApplicationController
 
   before_action :set_order, only: [:show, :edit, :update, :destroy ]
-  # skip_before_action :authorize, only: [:new, :create]
+  skip_before_action :authorize, only: [:new, :create]
 
   def index
-    @orders = Order.all
+
+    if session[:role] == 'user'
+      user = User.find(session[:user_id])
+      @orders = user.orders
+
+    elsif session[:role] == 'driver'
+      driver = Driver.find(session[:driver_id])
+      @orders = driver.orders
+
+    else
+      @orders = Order.all
+    end
   end
 
   def show
@@ -23,7 +34,7 @@ class OrdersController < ApplicationController
     @order.user_id = session[:user_id]
     @order.distance = @order.distance_length
     @order.total_price = @order.total
-    @order.driver_id = @order.driver_near_first.id
+    @order.driver_id = @order.driver_near_first
 
     respond_to do |format|
       if @order.save

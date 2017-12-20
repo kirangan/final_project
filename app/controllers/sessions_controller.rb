@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   
-  # skip_before_action :authorize
-
+  skip_before_action :authorize
 
   def new
   end
@@ -11,13 +10,11 @@ class SessionsController < ApplicationController
     driver = Driver.find_by(username: params[:username])
       
     if user.try(:authenticate, params[:password]) && params[:role] == 'user'
-      # log_in user
       session[:user_id] = user.id
       session[:role] = params[:role]
       redirect_to users_path
 
     elsif driver.try(:authenticate, params[:password]) && params[:role] == 'driver'
-      # log_in_driver driver
       session[:driver_id] = driver.id
       session[:role] = params[:role]
       redirect_to drivers_path

@@ -1,8 +1,9 @@
 class DriversController < ApplicationController
   before_action :set_driver, only: [:show, :edit, :update, :destroy, :setlocation]
+  skip_before_action :authorize, only: [:new, :create]
 
   def index
-    @drivers = Driver.all
+    @driver = Driver.find(session[:driver_id])
   end
   
   def show

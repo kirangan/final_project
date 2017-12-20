@@ -7,12 +7,6 @@ describe UsersController do
   end
 
   describe 'GET #index' do
-    it "populates an array of all users" do
-      user2 = create(:user, username: "user2")
-      get :index
-      expect(assigns(:users)).to match_array([@user1, user2])
-    end
-
     it "renders the :index template" do
       get :index
       expect(response).to render_template :index
@@ -130,20 +124,4 @@ describe UsersController do
     end
   end
 
-  describe 'DELETE #destroy' do
-    before :each do
-      @user = create(:user)
-    end
-
-    it "deletes the user from the database" do
-      expect{
-        delete :destroy, params: { id: @user }
-      }.to change(User, :count).by(-1)
-    end
-
-    it "redirects to users#index" do
-      delete :destroy, params: { id: @user }
-      expect(response).to redirect_to users_url
-    end
-  end
 end

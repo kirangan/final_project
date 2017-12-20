@@ -18,11 +18,11 @@ class Driver < ApplicationRecord
   validates :password, length: { minimum: 8 }, allow_blank: true
 
   def self.update_gopay_driver_from_order(order)
-    Driver.find(order.driver_near_first.id).update(gopay: order.increase_gopay)
+    Driver.find(order.driver_near_first).update(gopay: order.increase_gopay)
   end
 
   def self.update_location_from_order(order)
-    Driver.find(order.driver_near_first.id).update(location: order.change_driver_location )
+    Driver.find(order.driver_near_first).update(location: order.change_driver_location )
   end
 
 end

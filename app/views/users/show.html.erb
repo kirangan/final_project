@@ -6,9 +6,14 @@
 </p>
 
 <p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+
+<p>
   <strong>Gopay Credit:</strong>
   <%= @user.gopay %>
 </p>
 
-<%= link_to 'Edit Profile', edit_user_path(@user) %> |
-<%= link_to 'Top Up', user_topup_path(@user) %>
+

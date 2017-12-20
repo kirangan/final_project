@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :topup]
+  skip_before_action :authorize, only: [:new, :create]
 
   def index
-    @users = User.all
+    @user = User.find(session[:user_id])
   end
 
   def show

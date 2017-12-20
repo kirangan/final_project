@@ -2,17 +2,11 @@ require 'rails_helper'
 
 describe DriversController do
   before :each do
-    @driver1 = create(:driver, drivername: "driver1")
+    @driver1 = create(:driver, username: "driver1")
     session[:driver_id] = @driver1.id
   end
 
   describe 'GET #index' do
-    it "populates an array of all drivers" do
-      driver2 = create(:driver, drivername: "driver2")
-      get :index
-      expect(assigns(:drivers)).to match_array([@driver1, driver2])
-    end
-
     it "renders the :index template" do
       get :index
       expect(response).to render_template :index
@@ -127,23 +121,6 @@ describe DriversController do
         patch :update, params: { id: @driver, driver: attributes_for(:invalid_driver) }
         expect(response).to render_template :edit
       end
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    before :each do
-      @driver = create(:driver)
-    end
-
-    it "deletes the driver from the database" do
-      expect{
-        delete :destroy, params: { id: @driver }
-      }.to change(Driver, :count).by(-1)
-    end
-
-    it "redirects to drivers#index" do
-      delete :destroy, params: { id: @driver }
-      expect(response).to redirect_to drivers_url
     end
   end
 end
