@@ -7,6 +7,12 @@ class LocationValidator < ActiveModel::Validator
         record.errors[:destination] << "is not found"
       end
     end
+
+    if !record.origin.empty? && !record.get_google_api.nil?
+      if record.get_google_api[:status] == "NOT_FOUND"
+        record.errors[:origin] << "is not found"
+      end
+    end
   end
   
   

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe OrdersController do
   before :each do
-    driver = create(:driver, location: "Tanah abang 3")
+    @driver = create(:driver, location: "Tanah abang 3")
     session[:driver_id] = driver.id
 
-    user = create(:user)
+    @user = create(:user)
     session[:user_id] = user.id
   end
   

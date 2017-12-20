@@ -20,9 +20,9 @@ describe SessionsController do
         expect(session[:user_id]).to eq(@user.id)
       end
 
-      it "redirects to admin index page" do
+      it "redirects to user page" do
         post :create, params: { username: 'user1', password: 'longpassword' }
-        expect(response).to redirect_to admin_index_url
+        expect(response).to redirect_to users_path
       end
     end
 
@@ -46,7 +46,7 @@ describe SessionsController do
 
     it "redirect_to to home index page" do
       delete :destroy, params: { id: @user }
-      expect(response).to redirect_to home_index_url
+      expect(response).to redirect_to root_url
     end
   end
 end

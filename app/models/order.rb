@@ -7,8 +7,8 @@ class Order < ApplicationRecord
   after_validation :geocode, if: ->(obj){ obj.origin.present? and obj.origin_changed? }
 
   after_validation :available_driver
-  before_save :origin_exist?
-  
+  after_validation :not_over_max_destination
+
   enum payment: {
     "Cash" => 0,
     "Go-Pay" => 1
@@ -19,13 +19,10 @@ class Order < ApplicationRecord
     "Go-Car" => 1
   }
   
-  
   validates :mode, :origin, :destination, :payment, presence: true
-  validates :payment, inclusion: payments.keys
   validates_with GopayValidator
   validates_with LocationValidator
-  validate :not_over_max_destination
-
+ 
   def max_destination
     50
   end
@@ -67,15 +64,25 @@ class Order < ApplicationRecord
   def total
     if api_not_nil?
       if mode == "Go-Bike"
-        cost = ((distance_length.to_f / 1000) * go_bike_price_per_km).round(-2)
+        if (distance_length.to_f / 1000) < 1
+          cost = go_bike_price_per_km
+        else
+          cost = ((distance_length.to_f / 1000) * go_bike_price_per_km).round(-2)
+        end
       else
-        cost = ((distance_length.to_f / 1000) * go_car_price_per_km).round(-2)
+        if (distance_length.to_f / 1000) < 1
+          cost = go_car_price_per_km
+        else
+          cost = ((distance_length.to_f / 1000) * go_car_price_per_km).round(-2)
+        end
       end
     end
   end
 
   def driver_near_first
-    check_driver.first.id
+    if !check_driver.blank?
+      check_driver.first.id
+    end
   end
 
   def reduce_gopay
@@ -105,18 +112,6 @@ class Order < ApplicationRecord
 
   def api_not_nil?
     !get_google_api.nil?
-  end
-
-  def origin_exist?
-    if latitude.blank? || longitude.blank?
-      errors.add(:origin, "not found")
-    end
-  end
-
-  def destination_exist?
-    if latitude_dest.blank? || longitude_dest.blank?
-      errors.add(:destination, "not found")
-    end
   end
 
   def not_over_max_destination
