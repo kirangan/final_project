@@ -99,13 +99,13 @@ describe User do
       expect(user.errors[:gopay]).to include("is not a number")
     end
 
-    # it "reduce gopay after order save" do
-    #   user = create(:user, gopay: 100000)
-    #   driver = create(:driver, vehicle_type: "Go-Bike", location: "sarinah jakarta")
-    #   order = create(:order, mode: "Go-Bike", origin: "sarinah jakarta", destination: "tanah abang",payment: "Go-Pay", user: user)
-    #   User.update_gopay_from_order(order)
-    #   expect(user.gopay).to eq(50000)
-    # end
+    it "reduce gopay after order save" do
+      user = create(:user, gopay: 100000)
+      driver = create(:driver, vehicle_type: "Go-Bike", location: "sarinah jakarta")
+      order = create(:order, mode: "Go-Bike", origin: "sarinah jakarta", destination: "tanah abang",payment: "Go-Pay", user: user)
+      User.update_gopay_from_order(order)
+      expect(user.gopay).to eq(50000)
+    end
   
 
   end

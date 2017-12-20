@@ -9,7 +9,7 @@ FactoryGirl.define do
 
     # total_price 30000
     association :user
-    # association :driver
+    association :driver
     
   end
 

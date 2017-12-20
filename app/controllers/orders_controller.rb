@@ -4,15 +4,12 @@ class OrdersController < ApplicationController
   skip_before_action :authorize, only: [:new, :create]
 
   def index
-
     if session[:role] == 'user'
       user = User.find(session[:user_id])
       @orders = user.orders
-
     elsif session[:role] == 'driver'
       driver = Driver.find(session[:driver_id])
       @orders = driver.orders
-
     else
       @orders = Order.all
     end

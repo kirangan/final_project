@@ -22,7 +22,7 @@ describe SessionsController do
 
       it "redirects to user page" do
         post :create, params: { username: 'user1', password: 'longpassword' }
-        expect(response).to redirect_to users_path
+        expect(response).to redirect_to login_url
       end
     end
 

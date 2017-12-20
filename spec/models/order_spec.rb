@@ -10,6 +10,7 @@ describe Order do
       expect(@order.get_google_api).not_to eq(nil)
     end
 
+
   it "has a valid factory" do
     expect(build(:order)).to be_valid
   end
@@ -40,7 +41,9 @@ describe Order do
     expect(order.errors[:destination]).to include("can't be blank")
   end
 
+  describe 
 
+ 
 
 
 end

@@ -9,9 +9,10 @@ FactoryGirl.define do
     password "longpassword"
     password_confirmation "longpassword"
 
+
   end
 
-  factory :invalid_driver do
+  factory :invalid_driver, parent: :driver do
     username nil
     email nil
     vehicle_type nil

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe OrdersController do
   before :each do
-    @driver = create(:driver, location: "Tanah abang 3")
+    driver = create(:driver, location: "Tanah abang 3")
     session[:driver_id] = driver.id
 
-    @user = create(:user)
+    user = create(:user)
     session[:user_id] = user.id
   end
   
@@ -49,23 +49,9 @@ describe OrdersController do
       expect(:response).to render_template :new
     end
  
-    it "redirects to the home index page" do
+    it "redirects to the order page" do
       get :new
-      expect(:response).to redirect_to home_index_url
-    end
-  end
-
-  describe 'GET #edit' do
-    it "assigns the requested order to @order" do
-      order = create(:order)
-      get :edit, params: { id: order }
-      expect(assigns(:order)).to eq order
-    end
-
-    it "renders the :edit template" do
-      order = create(:order)
-      get :edit, params: { id: order }
-      expect(response).to render_template :edit
+      expect(:response).to redirect_to orders_url
     end
   end
 
@@ -77,9 +63,9 @@ describe OrdersController do
         }.to change(Order, :count).by(1)
       end
 
-      it "redirects to store index page" do
+      it "redirects to order index page" do
         post :create, params: { order: attributes_for(:order) }
-        expect(response).to redirect_to store_index_url
+        expect(response).to redirect_to orders_url
       end
     end
 
